@@ -80,3 +80,75 @@ export const mockGalleries = [
     acf: { gallery_type: "Events", is_featured: true, gallery_images: [{ url: img("photo-1492684223066-81342ee5ff30") }] },
   },
 ];
+
+export const mockServices = [
+  {
+    id: 101,
+    slug: "exotic-photography",
+    title: { rendered: "Exotic Photography" },
+    excerpt: { rendered: "Artistic, expressive sessions tailored to your vision." },
+    content: {
+      rendered:
+        "<p>Creative sessions with confident direction, premium edits, and a comfortable, professional experience.</p>",
+    },
+    acf: {
+      service_type: "Exotic",
+      starting_price_text: "Packages start at $X",
+      what_includes: [
+        { item_title: "Session planning", item_detail: "Outfit + concept guidance" },
+        { item_title: "Directed posing", item_detail: "Comfortable coaching throughout" },
+        { item_title: "Edited gallery", item_detail: "High-quality retouching & color" },
+      ],
+      faq: [
+        { question: "Do you provide a studio?", answer: "Studio options are available depending on the concept." },
+        { question: "How long until delivery?", answer: "Typical turnaround is 7-14 days." },
+      ],
+    },
+  },
+  {
+    id: 102,
+    slug: "wedding-photography",
+    title: { rendered: "Wedding Photography" },
+    excerpt: { rendered: "Timeless storytelling for one of life's biggest days." },
+    content: {
+      rendered:
+        "<p>Story-driven wedding coverage with a consistent edit style, communication, and reliability.</p>",
+    },
+    acf: {
+      service_type: "Weddings",
+      starting_price_text: "Collections start at $X",
+      what_includes: [
+        { item_title: "Pre-wedding consult", item_detail: "Timeline + shot planning" },
+        { item_title: "Full-day coverage", item_detail: "Flexible coverage options" },
+        { item_title: "Edited gallery", item_detail: "High-resolution delivery" },
+      ],
+      faq: [
+        { question: "Do you travel?", answer: "Yes-travel is available with advance notice." },
+        { question: "Can we add a second shooter?", answer: "Yes, depending on availability." },
+      ],
+    },
+  },
+  {
+    id: 103,
+    slug: "event-photography",
+    title: { rendered: "Event Photography" },
+    excerpt: { rendered: "Professional coverage for private and corporate events." },
+    content: {
+      rendered:
+        "<p>Clean, consistent event coverage-candid moments, details, and atmosphere with professional delivery.</p>",
+    },
+    acf: {
+      service_type: "Events",
+      starting_price_text: "Hourly rates available",
+      what_includes: [
+        { item_title: "On-site coverage", item_detail: "Candid + key moments" },
+        { item_title: "Detail shots", item_detail: "Venue, guests, branding" },
+        { item_title: "Fast delivery", item_detail: "Ideal for promos and recap posts" },
+      ],
+      faq: [
+        { question: "How fast is delivery?", answer: "48-72 hours for preview selects, with full delivery shortly after." },
+      ],
+    },
+  },
+];
+
