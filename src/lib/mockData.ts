@@ -50,7 +50,7 @@ export const mockGalleries = [
     },
     acf: {
       gallery_type: "Events",
-      is_featured: false,
+      is_featured: true,
       gallery_images: [
         { url: "https://images.unsplash.com/photo-1515165562835-c4c1b8c0f0b9?w=1600&q=80", alt: "Event 1" },
       ],

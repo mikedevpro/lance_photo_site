@@ -12,6 +12,7 @@ function normalizeType(v: string) {
 
 function toLabel(v: string) {
   const n = normalizeType(v);
+  if (n === "featured") return "Featured";
   if (n === "exotic") return "Exotic";
   if (n === "weddings" || n === "wedding") return "Weddings";
   if (n === "events" || n === "event") return "Events";
@@ -19,16 +20,22 @@ function toLabel(v: string) {
 }
 
 export default function PortfolioClient({ items }: { items: WpGallery[] }) {
-  const options = ["All", "Exotic", "Weddings", "Events"];
+  const options = ["All", "Featured", "Exotic", "Weddings", "Events"];
   const search = useSearchParams();
   const [manualFilter, setManualFilter] = useState<string | null>(null);
   const filter = manualFilter ?? toLabel(search.get("type") ?? "");
 
   const filtered = useMemo(() => {
-    if (filter === "All") return items;
-    const f = normalizeType(filter);
-    return items.filter((it) => normalizeType(String(it?.acf?.gallery_type ?? "")) === f);
-  }, [items, filter]);
+  if (filter === "All") return items;
+
+  if (filter === "Featured") {
+    return items.filter((it) => Boolean(it?.acf?.is_featured));
+  }
+
+  const f = normalizeType(filter);
+  return items.filter((it) => normalizeType((it?.acf?.gallery_type as string) ?? "") === f);
+}, [items, filter]);
+
 
   return (
     <section className="py-10">

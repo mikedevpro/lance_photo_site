@@ -1,15 +1,18 @@
-import type { WpGallery } from "@/lib/types";
 import Container from "@/components/layout/Container";
 import GalleryCard from "./GalleryCard";
 
-export default function GalleryGrid({ items }: { items: WpGallery[] }) {
+export default function GalleryGrid({ items }: { items: any[] }) {
   return (
     <Container>
-      <div className="grid gap-4 md:grid-cols-3">
+      {/* Masonry via CSS columns */}
+      <div className="columns-1 gap-4 md:columns-2 2xl:columns-4">
         {items.map((it) => (
-          <GalleryCard key={it.id} item={it} />
+          <div key={it.id} className="mb-4 break-inside-avoid">
+            <GalleryCard item={it} />
+          </div>
         ))}
       </div>
     </Container>
   );
 }
+
