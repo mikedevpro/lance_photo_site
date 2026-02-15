@@ -23,7 +23,7 @@ export default function GalleryCard({ item }: { item: any }) {
             alt={title}
             width={1200}
             height={h}
-            className="h-auto w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+            className="h-auto w-full object-cover transition duration-700 group-hover:scale-[1.03] group-hover:brightness-110"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
         ) : (

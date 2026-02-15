@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 type FadeInProps = {
   children: React.ReactNode;
   className?: string;
-  delayMs?: number; // for a subtle stagger
+  delayMs?: number;
 };
 
 export default function FadeIn({ children, className = "", delayMs = 0 }: FadeInProps) {
@@ -13,7 +13,6 @@ export default function FadeIn({ children, className = "", delayMs = 0 }: FadeIn
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
-    // Respect reduced motion
     const prefersReduced =
       typeof window !== "undefined" &&
       window.matchMedia &&
@@ -38,7 +37,6 @@ export default function FadeIn({ children, className = "", delayMs = 0 }: FadeIn
         }
       },
       {
-        root: null,
         threshold: 0.12,
         rootMargin: "0px 0px -10% 0px",
       }
@@ -53,7 +51,9 @@ export default function FadeIn({ children, className = "", delayMs = 0 }: FadeIn
       ref={ref}
       className={[
         "transition duration-700 ease-out will-change-transform",
-        shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
+        shown
+          ? "opacity-100 translate-y-0 blur-0"
+          : "opacity-0 translate-y-4 blur-sm",
         className,
       ].join(" ")}
       style={shown ? { transitionDelay: `${delayMs}ms` } : undefined}
