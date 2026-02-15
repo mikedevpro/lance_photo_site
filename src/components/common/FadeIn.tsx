@@ -10,18 +10,13 @@ type FadeInProps = {
 
 export default function FadeIn({ children, className = "", delayMs = 0 }: FadeInProps) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [shown, setShown] = useState(false);
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const [shown, setShown] = useState(prefersReducedMotion);
 
   useEffect(() => {
-    const prefersReduced =
-      typeof window !== "undefined" &&
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (prefersReduced) {
-      setShown(true);
-      return;
-    }
+    if (prefersReducedMotion) return;
 
     const el = ref.current;
     if (!el) return;
@@ -44,7 +39,7 @@ export default function FadeIn({ children, className = "", delayMs = 0 }: FadeIn
 
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <div
