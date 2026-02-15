@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
 import FilterTabs from "@/components/gallery/FilterTabs";
 import type { WpGallery } from "@/lib/types";
@@ -12,29 +11,27 @@ function normalizeType(v: string) {
 
 function toLabel(v: string) {
   const n = normalizeType(v);
-  if (n === "featured") return "Featured";
   if (n === "exotic") return "Exotic";
   if (n === "weddings" || n === "wedding") return "Weddings";
   if (n === "events" || n === "event") return "Events";
-  return "All";
+  if (n === "all") return "All";
+  return "Featured";
 }
 
 export default function PortfolioClient({ items }: { items: WpGallery[] }) {
-  const options = ["All", "Featured", "Exotic", "Weddings", "Events"];
-  const search = useSearchParams();
-  const [manualFilter, setManualFilter] = useState<string | null>(null);
-  const filter = manualFilter ?? toLabel(search.get("type") ?? "");
+  const options = ["Featured", "All", "Exotic", "Weddings", "Events"];
+  const [filter, setFilter] = useState<string>("Featured");
 
   const filtered = useMemo(() => {
-  if (filter === "All") return items;
+    if (filter === "All") return items;
 
-  if (filter === "Featured") {
-    return items.filter((it) => Boolean(it?.acf?.is_featured));
-  }
+    if (filter === "Featured") {
+      return items.filter((it) => Boolean(it?.acf?.is_featured));
+    }
 
-  const f = normalizeType(filter);
-  return items.filter((it) => normalizeType((it?.acf?.gallery_type as string) ?? "") === f);
-}, [items, filter]);
+    const f = normalizeType(filter);
+    return items.filter((it) => normalizeType((it?.acf?.gallery_type as string) ?? "") === f);
+  }, [items, filter]);
 
 
   return (
@@ -45,7 +42,12 @@ export default function PortfolioClient({ items }: { items: WpGallery[] }) {
           Explore recent sessions and featured work.
         </p>
 
-        <FilterTabs value={filter} onChange={(v) => setManualFilter(v)} options={options} />
+        <FilterTabs value={filter} onChange={(v) => setFilter(toLabel(v))} options={options} />
+        {filter === "Featured" ? (
+          <div className="mt-2 text-sm text-white/60">
+            Curated highlights — the best work to start with.
+          </div>
+        ) : null}
 
         <div className="mt-3 text-sm text-white/60">
           Showing <span className="font-semibold text-white">{filtered.length}</span>{" "}
