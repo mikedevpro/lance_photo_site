@@ -4,6 +4,16 @@ import Link from "next/link";
 import { q } from "@/lib/wp";
 import { wpText } from "@/lib/utils";
 
+type ServiceInclude = {
+  item_title?: string;
+  item_detail?: string;
+};
+
+type ServiceFaq = {
+  question?: string;
+  answer?: string;
+};
+
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const arr = await q.serviceBySlug(params.slug);
   const item = arr?.[0];
@@ -36,8 +46,8 @@ export default async function ServiceDetailsPage({ params }: { params: { slug: s
 
   const type = asString(item?.acf?.service_type);
   const price = asString(item?.acf?.starting_price_text);
-  const includes = Array.isArray(item?.acf?.what_includes) ? item.acf.what_includes : [];
-  const faq = Array.isArray(item?.acf?.faq) ? item.acf.faq : [];
+  const includes = (Array.isArray(item?.acf?.what_includes) ? item.acf.what_includes : []) as ServiceInclude[];
+  const faq = (Array.isArray(item?.acf?.faq) ? item.acf.faq : []) as ServiceFaq[];
   const contentHtml = wpText(item?.content) || "";
 
   return (
@@ -80,7 +90,7 @@ export default async function ServiceDetailsPage({ params }: { params: { slug: s
           <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
             <h2 className="text-lg font-semibold">What’s included</h2>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
-              {includes.map((x: any, idx: number) => (
+              {includes.map((x, idx) => (
                 <div key={idx} className="rounded-xl border border-white/10 bg-black/20 p-4">
                   <div className="font-semibold">{x.item_title}</div>
                   <div className="mt-1 text-sm text-white/70">{x.item_detail}</div>
@@ -95,7 +105,7 @@ export default async function ServiceDetailsPage({ params }: { params: { slug: s
           <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
             <h2 className="text-lg font-semibold">FAQ</h2>
             <div className="mt-4 space-y-3">
-              {faq.map((f: any, idx: number) => (
+              {faq.map((f, idx) => (
                 <details
                   key={idx}
                   className="rounded-xl border border-white/10 bg-black/20 p-4"

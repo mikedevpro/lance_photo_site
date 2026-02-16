@@ -1,22 +1,21 @@
-import Hero from "@/components/home/Hero";
+import CinematicHero from "@/components/home/CinematicHero";
 import CategoryCards from "@/components/home/CategoryCards";
 import FeaturedGalleries from "@/components/home/FeaturedGalleries";
 import BookingCTA from "@/components/home/BookingCTA";
 import { q } from "@/lib/wp";
 
-export const dynamic = "force-dynamic";
-
 export default async function HomePage() {
-  const galleries = await q.galleries("orderby=date&order=desc").catch(() => []);
-  // “featured” filtering depends on how you expose ACF.
-  // For now: just take the newest 6. Later we’ll filter by acf.is_featured.
-  const featured = galleries.slice(0, 6);
+  const galleries = await q.galleries();
+
+  // Featured bucket (falls back to newest if none)
+  const featured = galleries.filter((g) => Boolean(g?.acf?.is_featured));
+  const heroPicks = featured.length ? featured : galleries.slice(0, 6);
 
   return (
     <>
-      <Hero />
+      <CinematicHero featured={heroPicks} />
       <CategoryCards />
-      <FeaturedGalleries items={featured} />
+      <FeaturedGalleries items={(featured.length ? featured : galleries).slice(0, 8)} />
       <BookingCTA />
     </>
   );

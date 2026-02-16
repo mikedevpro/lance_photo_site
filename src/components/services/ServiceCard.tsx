@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { wpText, stripHtml } from "@/lib/utils";
+import type { WpService } from "@/lib/types";
 
-export default function ServiceCard({ item }: { item: any }) {
+export default function ServiceCard({ item }: { item: WpService }) {
   const title = wpText(item.title);
   const excerpt = stripHtml(wpText(item.excerpt));
   const price = item?.acf?.starting_price_text;
