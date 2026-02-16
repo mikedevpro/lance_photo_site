@@ -31,11 +31,14 @@ export default async function ServiceDetailsPage({ params }: { params: { slug: s
   }
 
   const title = wpText(item.title);
-  const type = item?.acf?.service_type;
-  const price = item?.acf?.starting_price_text;
-  const includes = item?.acf?.what_includes ?? [];
-  const faq = item?.acf?.faq ?? [];
-  const contentHtml = item?.content?.rendered ?? "";
+
+  const asString = (v: unknown) => (typeof v === "string" ? v : undefined);
+
+  const type = asString(item?.acf?.service_type);
+  const price = asString(item?.acf?.starting_price_text);
+  const includes = Array.isArray(item?.acf?.what_includes) ? item.acf.what_includes : [];
+  const faq = Array.isArray(item?.acf?.faq) ? item.acf.faq : [];
+  const contentHtml = wpText(item?.content) || "";
 
   return (
     <section className="py-10">
