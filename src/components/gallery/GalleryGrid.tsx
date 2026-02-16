@@ -1,8 +1,9 @@
 import Container from "@/components/layout/Container";
 import GalleryCard from "./GalleryCard";
 import FadeIn from "@/components/common/FadeIn";
+import type { WpGallery } from "@/lib/types";
 
-export default function GalleryGrid({ items }: { items: any[] }) {
+export default function GalleryGrid({ items }: { items: WpGallery[] }) {
   return (
     <Container>
       {/* Masonry via CSS columns */}

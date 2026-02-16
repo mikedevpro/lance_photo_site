@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { featuredImageUrl, wpText } from "@/lib/utils";
+import type { WpGallery } from "@/lib/types";
 
-export default function GalleryCard({ item }: { item: any }) {
+export default function GalleryCard({ item }: { item: WpGallery }) {
   const img = featuredImageUrl(item);
   const title = wpText(item.title);
 
