@@ -79,6 +79,82 @@ export const mockGalleries = [
     _embedded: { "wp:featuredmedia": [{ source_url: img("photo-1492684223066-81342ee5ff30") }] },
     acf: { gallery_type: "Events", is_featured: true, gallery_images: [{ url: img("photo-1492684223066-81342ee5ff30") }] },
   },
+  {
+    id: 10,
+    slug: "golden-hour-wedding-ceremony",
+    title: { rendered: "Golden Hour Wedding Ceremony" },
+    excerpt: { rendered: "Editorial wedding portraits with warm sunset light." },
+    _embedded: { "wp:featuredmedia": [{ source_url: img("photo-1519741497674-611481863552") }] },
+    acf: {
+      gallery_type: "Weddings",
+      is_featured: true,
+      location: "Phoenix, AZ",
+      shoot_date: "2026-01-12",
+      short_description: "Golden hour ceremony with clean editorial tones.",
+      gallery_images: [
+        { url: img("photo-1519741497674-611481863552") },
+        { url: img("photo-1606216794074-735e91aa2c92") },
+        { url: img("photo-1537633552985-df8429e8048b") },
+      ],
+    },
+  },
+  {
+    id: 11,
+    slug: "desert-chapel-vows",
+    title: { rendered: "Desert Chapel Vows" },
+    excerpt: { rendered: "Candid vows and portraits framed by Arizona skies." },
+    _embedded: { "wp:featuredmedia": [{ source_url: img("photo-1522673607200-164d1b6ce486") }] },
+    acf: {
+      gallery_type: "Weddings",
+      is_featured: true,
+      location: "Phoenix, AZ",
+      shoot_date: "2026-01-12",
+      short_description: "Golden hour ceremony with clean editorial tones.",
+      gallery_images: [
+        { url: img("photo-1522673607200-164d1b6ce486") },
+        { url: img("photo-1511285560929-80b456fea0bc") },
+        { url: img("photo-1507504031003-b417219a0fde") },
+      ],
+    },
+  },
+  {
+    id: 12,
+    slug: "rooftop-reception-glow",
+    title: { rendered: "Rooftop Reception Glow" },
+    excerpt: { rendered: "Night portraits and reception coverage with cinematic contrast." },
+    _embedded: { "wp:featuredmedia": [{ source_url: img("photo-1519225421980-715cb0215aed") }] },
+    acf: {
+      gallery_type: "Weddings",
+      is_featured: true,
+      location: "Phoenix, AZ",
+      shoot_date: "2026-01-12",
+      short_description: "Golden hour ceremony with clean editorial tones.",
+      gallery_images: [
+        { url: img("photo-1519225421980-715cb0215aed") },
+        { url: img("photo-1522673607200-164d1b6ce486") },
+        { url: img("photo-1516589091380-5d8e87df6991") },
+      ],
+    },
+  },
+  {
+    id: 13,
+    slug: "classic-black-tie-celebration",
+    title: { rendered: "Classic Black-Tie Celebration" },
+    excerpt: { rendered: "Refined ceremony details and polished couple portraits." },
+    _embedded: { "wp:featuredmedia": [{ source_url: img("photo-1511285560929-80b456fea0bc") }] },
+    acf: {
+      gallery_type: "Weddings",
+      is_featured: true,
+      location: "Phoenix, AZ",
+      shoot_date: "2026-01-12",
+      short_description: "Golden hour ceremony with clean editorial tones.",
+      gallery_images: [
+        { url: img("photo-1511285560929-80b456fea0bc") },
+        { url: img("photo-1529634897861-1a49e3c3b7b5") },
+        { url: img("photo-1507504031003-b417219a0fde") },
+      ],
+    },
+  },
 ];
 
 export const mockServices = [
@@ -151,4 +227,3 @@ export const mockServices = [
     },
   },
 ];
-

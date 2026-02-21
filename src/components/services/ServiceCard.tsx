@@ -1,15 +1,14 @@
 import Link from "next/link";
 import { wpText, stripHtml } from "@/lib/utils";
-// import type { WpService } from "@/lib/types";
+import type { WpService } from "@/lib/types";
 
-export default function ServiceCard({ item }: { item: any}) {
-const asString = (v: unknown) => (typeof v === "string" ? v : undefined)
+export default function ServiceCard({ item }: { item: WpService }) {
+  const asString = (v: unknown) => (typeof v === "string" ? v : undefined);
 
   const title = wpText(item.title);
   const excerpt = stripHtml(wpText(item.excerpt));
   const price = asString(item?.acf?.starting_price_text);
   const serviceType = asString(item?.acf?.service_type) ?? "Service";
-
 
   return (
     <Link
