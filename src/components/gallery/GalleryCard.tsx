@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Lightbox, { type LightboxImage } from "./Lightbox";
 import { featuredImageUrl, wpText } from "@/lib/utils";
@@ -29,6 +30,7 @@ function toLightboxImage(
 export default function GalleryCard({ item }: { item: WpGallery }) {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(0);
+  const pathname = usePathname();
 
   const title = wpText(item.title);
   const cover = featuredImageUrl(item);
@@ -73,6 +75,17 @@ export default function GalleryCard({ item }: { item: WpGallery }) {
   const prev = () => setIdx((i) => (i - 1 + images.length) % images.length);
   const next = () => setIdx((i) => (i + 1) % images.length);
 
+  // Creates a link like: https://yoursite.com/portfolio?img=2
+  // Since we’re portfolio-first, we’ll share the current page + img index.
+  // If we later add per-gallery pages, we’ll switch this to /portfolio/[slug]?img=
+  const shareUrl = useMemo(() => {
+    if (typeof window === "undefined") return "";
+    const url = new URL(window.location.href);
+    url.pathname = pathname; // current route (usually /portfolio)
+    url.searchParams.set("img", String(idx));
+    return url.toString();
+  }, [pathname, idx]);
+
   return (
     <>
       <button
@@ -111,6 +124,7 @@ export default function GalleryCard({ item }: { item: WpGallery }) {
         <Lightbox
           images={images}
           index={idx}
+          shareUrl={shareUrl}
           onClose={() => setOpen(false)}
           onPrev={prev}
           onNext={next}

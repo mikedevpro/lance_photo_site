@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export type LightboxImage = {
@@ -18,17 +18,31 @@ export type LightboxImage = {
 export default function Lightbox({
   images,
   index,
+  shareUrl,
   onClose,
   onPrev,
   onNext,
 }: {
   images: LightboxImage[];
   index: number;
+  shareUrl: string;
   onClose: () => void;
   onPrev: () => void;
   onNext: () => void;
 }) {
   const current = images[index];
+  const [copied, setCopied] = useState(false);
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1200);
+    } catch {
+      // Fallback: prompt (works even if clipboard perms blocked)
+      window.prompt("Copy this link:", shareUrl);
+    }
+  };
 
   useEffect(() => {
     // Lock body scroll while open
@@ -66,16 +80,29 @@ export default function Lightbox({
           ) : null}
         </div>
 
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onClose();
-          }}
-          className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10"
-          type="button"
-        >
-          ✕ Close
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              copyLink();
+            }}
+            className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10"
+            type="button"
+          >
+            {copied ? "✓ Copied" : "Copy link"}
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10"
+            type="button"
+          >
+            ✕ Close
+          </button>
+        </div>
       </div>
 
       {/* Prev/Next */}
